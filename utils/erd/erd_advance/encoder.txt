@@ -1,0 +1,5 @@
+'encoder': {
+    'green': 'finished',
+    'red': 'not started',
+    'yellow': 'doubt'
+}
