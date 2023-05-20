@@ -16,24 +16,32 @@ async function createCompanyTransport(req, res, next) {
 
 async function updateCompanyTransport(req, res, next) {
   const { _id, name } = req.body;
-  const companyTransport = await CompanyTransport.findOne({ _id: _id });
-
-  if (!companyTransport) { return res.status(400).send('La compañía de transporte no existe'); }
-
-  companyTransport.name = name;
-
-  await companyTransport.save();
-  res.status(200).send('Compañía de transporte modificada con éxito');
+  
+  await CompanyTransport.updateOne({ _id: _id }, {
+    name: name
+  })
+    .then(() => {
+      console.log('Compañía de transporte modificada con éxito');
+      res.status(200).send('Compañía de transporte modificada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar la compañía de transporte:', error);
+      res.status(400).send('La compañía de transporte no existe');
+    });
 }
 
 async function deleteCompanyTransport(req, res, next) {
   const _id = req.body;
-  const findCompanyTransport = await CompanyTransport.findOne({ _id: _id });
 
-  if (!findCompanyTransport) { return res.status(400).send('La compañía de transporte no existe'); }
-
-  await CompanyTransport.deleteOne({ _id: _id });
-  res.status(200).send('Compañía de transporte eliminada con éxito');
+  await CompanyTransport.deleteOne({ _id: _id })
+    .then(() => {
+      console.log('Compañía de transporte eliminada con éxito');
+      res.status(200).send('Compañía de transporte eliminada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al eliminar la compañía de transporte:', error);
+      res.status(400).send('La compañía de transporte no existe');
+    });
 }
 
 module.exports = {

@@ -16,24 +16,32 @@ async function createVehicleBrand(req, res, next) {
 
 async function updateVehicleBrand(req, res, next) {
   const { _id, name } = req.body;
-  const vehicleBrand = await VehicleBrand.findOne({ _id: _id });
-
-  if (!vehicleBrand) { return res.status(400).send('La marca de vehículo no existe'); }
-
-  vehicleBrand.name = name;
-
-  await vehicleBrand.save();
-  res.status(200).send('Marca de vehículo modificada con éxito');
+  
+  await VehicleBrand.updateOne({ _id: _id }, {
+    name: name
+  })
+    .then(() => {
+      console.log('Marca de vehículo modificada con éxito');
+      res.status(200).send('Marca de vehículo modificada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar la marca de vehículo:', error);
+      res.status(400).send('La marca de vehículo no existe');
+    });
 }
 
 async function deleteVehicleBrand(req, res, next) {
   const _id = req.body;
-  const findVehicleBrand = await VehicleBrand.findOne({ _id: _id });
-
-  if (!findVehicleBrand) { return res.status(400).send('La marca de vehículo no existe'); }
-
-  await VehicleBrand.deleteOne({ _id: _id });
-  res.status(200).send('Marca de vehículo eliminada con éxito');
+  
+  await VehicleBrand.deleteOne({ _id: _id })
+    .then(() => {
+      console.log('Marca de vehículo eliminada con éxito');
+      res.status(200).send('Marca de vehículo eliminada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al eliminar la marca de vehículo:', error);
+      res.status(400).send('La marca de vehículo no existe');
+    });
 }
 
 module.exports = {

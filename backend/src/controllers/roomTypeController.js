@@ -16,24 +16,32 @@ async function createRoomType(req, res, next) {
 
 async function updateRoomType(req, res, next) {
   const { _id, name } = req.body;
-  const roomType = await RoomType.findOne({ _id: _id });
-
-  if (!roomType) { return res.status(400).send('El tipo de habitación no existe'); }
-
-  roomType.name = name;
-
-  await roomType.save();
-  res.status(200).send('Tipo de habitación modificado con éxito');
+  
+  await RoomType.updateOne({ _id: _id }, {
+    name: name
+  })
+    .then(() => {
+      console.log('Tipo de habitación modificado con éxito');
+      res.status(200).send('Tipo de habitación modificado con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar el tipo de habitación:', error);
+      res.status(400).send('El tipo de habitación no existe');
+    });
 }
 
 async function deleteRoomType(req, res, next) {
   const _id = req.body;
-  const findRoomType = await RoomType.findOne({ _id: _id });
-
-  if (!findRoomType) { return res.status(400).send('El tipo de habitación no existe'); }
-
-  await RoomType.deleteOne({ _id: _id });
-  res.status(200).send('Tipo de habitación eliminado con éxito');
+  
+  await RoomType.deleteOne({ _id: _id })
+    .then(() => {
+      console.log('Tipo de habitación eliminado con éxito');
+      res.status(200).send('Tipo de habitación eliminado con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al eliminar el tipo de habitación:', error);
+      res.status(400).send('El tipo de habitación no existe');
+    });
 }
 
 module.exports = {

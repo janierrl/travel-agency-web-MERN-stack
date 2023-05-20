@@ -16,24 +16,32 @@ async function createServiceType(req, res, next) {
 
 async function updateServiceType(req, res, next) {
   const { _id, name } = req.body;
-  const serviceType = await ServiceType.findOne({ _id: _id });
-
-  if (!serviceType) { return res.status(400).send('El tipo de servicio no existe'); }
-
-  serviceType.name = name;
-
-  await serviceType.save();
-  res.status(200).send('Tipo de servicio modificado con éxito');
+  
+  await ServiceType.updateOne({ _id: _id }, {
+    name: name
+  })
+    .then(() => {
+      console.log('Tipo de servicio modificado con éxito');
+      res.status(200).send('Tipo de servicio modificado con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar el tipo de servicio:', error);
+      res.status(400).send('El tipo de servicio no existe');
+    });
 }
 
 async function deleteServiceType(req, res, next) {
   const _id = req.body;
-  const findServiceType = await ServiceType.findOne({ _id: _id });
-
-  if (!findServiceType) { return res.status(400).send('El tipo de servicio no existe'); }
-
-  await ServiceType.deleteOne({ _id: _id });
-  res.status(200).send('Tipo de servicio eliminado con éxito');
+  
+  await ServiceType.deleteOne({ _id: _id })
+    .then(() => {
+      console.log('Tipo de servicio eliminado con éxito');
+      res.status(200).send('Tipo de servicio eliminado con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al eliminar el tipo de servicio:', error);
+      res.status(400).send('El tipo de servicio no existe');
+    });
 }
 
 module.exports = {

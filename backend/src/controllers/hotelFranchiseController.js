@@ -16,24 +16,32 @@ async function createHotelFranchise(req, res, next) {
 
 async function updateHotelFranchise(req, res, next) {
   const { _id, name } = req.body;
-  const hotelFranchise = await HotelFranchise.findOne({ _id: _id });
-
-  if (!hotelFranchise) { return res.status(400).send('La franquicia hotelera no existe'); }
-
-  hotelFranchise.name = name;
-
-  await hotelFranchise.save();
-  res.status(200).send('Franquicia hotelera modificada con éxito');
+  
+  await HotelFranchise.updateOne({ _id: _id }, {
+    name: name
+  })
+    .then(() => {
+      console.log('Franquicia hotelera modificada con éxito');
+      res.status(200).send('Franquicia hotelera modificada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar la franquicia hotelera:', error);
+      res.status(400).send('La franquicia hotelera no existe');
+    });
 }
 
 async function deleteHotelFranchise(req, res, next) {
   const _id = req.body;
-  const findHotelFranchise = await HotelFranchise.findOne({ _id: _id });
-
-  if (!findHotelFranchise) { return res.status(400).send('La franquicia hotelera no existe'); }
-
-  await HotelFranchise.deleteOne({ _id: _id });
-  res.status(200).send('Franquicia hotelera eliminada con éxito');
+  
+  await HotelFranchise.deleteOne({ _id: _id })
+    .then(() => {
+      console.log('Franquicia hotelera eliminada con éxito');
+      res.status(200).send('Franquicia hotelera eliminada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al eliminar la franquicia hotelera:', error);
+      res.status(400).send('La franquicia hotelera no existe');
+    });
 }
 
 module.exports = {

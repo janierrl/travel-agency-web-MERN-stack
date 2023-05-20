@@ -16,24 +16,32 @@ async function createDailyActivity(req, res, next) {
 
 async function updateDailyActivity(req, res, next) {
   const { _id, name } = req.body;
-  const dailyActivity = await DailyActivity.findOne({ _id: _id });
-
-  if (!dailyActivity) { return res.status(400).send('La actividad diaria no existe'); }
-
-  dailyActivity.name = name;
-
-  await dailyActivity.save();
-  res.status(200).send('Actividad diaria modificada con éxito');
+  
+  await DailyActivity.updateOne({ _id: _id }, {
+    name: name
+  })
+    .then(() => {
+      console.log('Actividad diaria modificada con éxito');
+      res.status(200).send('Actividad diaria modificada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar la actividad diaria:', error);
+      res.status(400).send('La actividad diaria no existe');
+    });
 }
 
 async function deleteDailyActivity(req, res, next) {
   const _id = req.body;
-  const findDailyActivity = await DailyActivity.findOne({ _id: _id });
-
-  if (!findDailyActivity) { return res.status(400).send('La actividad diaria no existe'); }
-
-  await DailyActivity.deleteOne({ _id: _id });
-  res.status(200).send('Actividad diaria eliminada con éxito');
+  
+  await DailyActivity.deleteOne({ _id: _id })
+    .then(() => {
+      console.log('Actividad diaria eliminada con éxito');
+      res.status(200).send('Actividad diaria eliminada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al eliminar la actividad diaria:', error);
+      res.status(400).send('La actividad diaria no existe');
+    });
 }
 
 module.exports = {

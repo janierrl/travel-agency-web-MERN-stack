@@ -16,24 +16,32 @@ async function createProvince(req, res, next) {
 
 async function updateProvince(req, res, next) {
   const { _id, name } = req.body;
-  const province = await Province.findOne({ _id: _id });
-
-  if (!province) { return res.status(400).send('La provincia no existe'); }
-
-  province.name = name;
-
-  await province.save();
-  res.status(200).send('Provincia modificada con éxito');
+  
+  await Province.updateOne({ _id: _id }, {
+    name: name
+  })
+    .then(() => {
+      console.log('Provincia modificada con éxito');
+      res.status(200).send('Provincia modificada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al actualizar la provincia:', error);
+      res.status(400).send('La provincia no existe');
+    });
 }
 
 async function deleteProvince(req, res, next) {
   const _id = req.body;
-  const findProvince = await Province.findOne({ _id: _id });
-
-  if (!findProvince) { return res.status(400).send('La provincia no existe'); }
-
-  await Province.deleteOne({ _id: _id });
-  res.status(200).send('Provincia eliminada con éxito');
+  
+  await Province.deleteOne({ _id: _id })
+    .then(() => {
+      console.log('Provincia eliminada con éxito');
+      res.status(200).send('Provincia eliminada con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al eliminar la provincia:', error);
+      res.status(400).send('La provincia no existe');
+    });
 }
 
 module.exports = {
