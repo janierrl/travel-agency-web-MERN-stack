@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const userSchema = new Schema({
+const contractSchema = new Schema({
     start_date: Date,
     finish_date: Date,
     conciliation_date: Date,
@@ -8,4 +8,4 @@ const userSchema = new Schema({
     id_contract_type: String
 });
 
-module.exports = model('Contract', userSchema);
+module.exports = model('Contract', contractSchema);

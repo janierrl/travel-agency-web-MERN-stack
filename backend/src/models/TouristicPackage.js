@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const userSchema = new Schema({
+const touristicPackageSchema = new Schema({
     promotional_name: String,
     days_amount: Number,
     nights_amount: Number,
@@ -12,4 +12,4 @@ const userSchema = new Schema({
     price: Number
 });
 
-module.exports = model('TouristicPackage', userSchema);
+module.exports = model('TouristicPackage', touristicPackageSchema);

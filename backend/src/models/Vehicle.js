@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const userSchema = new Schema({
+const vehicleSchema = new Schema({
     capacity_without_baggage: Number,
     capacity_with_baggage: Number,
     capacity_total: Number,
@@ -9,4 +9,4 @@ const userSchema = new Schema({
     id_vehicle_brand: String
 });
 
-module.exports = model('Vehicle', userSchema);
+module.exports = model('Vehicle', vehicleSchema);
