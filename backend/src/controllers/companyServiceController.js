@@ -7,7 +7,7 @@ async function createCompanyService(req, res, next) {
   if (findCompanyService) { return res.status(400).send('La compañía de servicio ya existe'); }
 
   const companyService = new CompanyService({
-      name: name
+    name: name
   });
 
   await companyService.save();

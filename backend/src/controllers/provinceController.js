@@ -7,7 +7,7 @@ async function createProvince(req, res, next) {
   if (findProvince) { return res.status(400).send('La provincia ya existe'); }
 
   const province = new Province({
-      name: name
+    name: name
   });
 
   await province.save();

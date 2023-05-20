@@ -7,7 +7,7 @@ async function createVehicleBrand(req, res, next) {
   if (findVehicleBrand) { return res.status(400).send('La marca de vehículo ya existe'); }
 
   const vehicleBrand = new VehicleBrand({
-      name: name
+    name: name
   });
 
   await vehicleBrand.save();

@@ -7,7 +7,7 @@ async function createHotelFranchise(req, res, next) {
   if (findHotelFranchise) { return res.status(400).send('La franquicia hotelera ya existe'); }
 
   const hotelFranchise = new HotelFranchise({
-      name: name
+    name: name
   });
 
   await hotelFranchise.save();

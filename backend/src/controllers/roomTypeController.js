@@ -7,7 +7,7 @@ async function createRoomType(req, res, next) {
   if (findRoomType) { return res.status(400).send('El tipo de habitación ya existe'); }
 
   const roomType = new RoomType({
-      name: name
+    name: name
   });
 
   await roomType.save();

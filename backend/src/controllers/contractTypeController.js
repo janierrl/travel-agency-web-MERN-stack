@@ -7,7 +7,7 @@ async function createContractType(req, res, next) {
   if (findContractType) { return res.status(400).send('El tipo de contrato ya existe'); }
 
   const contractType = new ContractType({
-      name: name
+    name: name
   });
 
   await contractType.save();

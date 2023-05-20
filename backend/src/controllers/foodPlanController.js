@@ -7,7 +7,7 @@ async function createFoodPlan(req, res, next) {
   if (findFoodPlan) { return res.status(400).send('El plan de alimentación ya existe'); }
 
   const foodPlan = new FoodPlan({
-      name: name
+    name: name
   });
 
   await foodPlan.save();

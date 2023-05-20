@@ -7,7 +7,7 @@ async function createModalityHotelComertial(req, res, next) {
   if (findModalityHotelComertial) { return res.status(400).send('La modalidad de hotel comercial ya existe'); }
 
   const modalityHotelComertial = new ModalityHotelComertial({
-      name: name
+    name: name
   });
 
   await modalityHotelComertial.save();

@@ -7,7 +7,7 @@ async function createDailyActivity(req, res, next) {
   if (findDailyActivity) { return res.status(400).send('La actividad diaria ya existe'); }
 
   const dailyActivity = new DailyActivity({
-      name: name
+    name: name
   });
 
   await dailyActivity.save();

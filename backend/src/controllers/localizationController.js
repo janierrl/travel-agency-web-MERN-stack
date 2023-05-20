@@ -7,7 +7,7 @@ async function createLocalization(req, res, next) {
   if (findLocalization) { return res.status(400).send('La lozalización ya existe'); }
 
   const localization = new Localization({
-      name: name
+    name: name
   });
 
   await localization.save();

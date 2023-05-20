@@ -7,7 +7,7 @@ async function createServiceType(req, res, next) {
   if (findServiceType) { return res.status(400).send('El tipo de servicio ya existe'); }
 
   const serviceType = new ServiceType({
-      name: name
+    name: name
   });
 
   await serviceType.save();

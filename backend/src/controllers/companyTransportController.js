@@ -7,7 +7,7 @@ async function createCompanyTransport(req, res, next) {
   if (findCompanyTransport) { return res.status(400).send('La compañía de transporte ya existe'); }
 
   const companyTransport = new CompanyTransport({
-      name: name
+    name: name
   });
 
   await companyTransport.save();
