@@ -1,7 +1,13 @@
 const Contract = require('../models/Contract.js');
 
 async function createContract(req, res, next) {
-  const { start_date, finish_date, conciliation_date, description, id_contract_type } = req.body;
+  const { 
+    start_date, 
+    finish_date, 
+    conciliation_date, 
+    description, 
+    id_contract_type 
+  } = req.body;
   const findContract = await Contract.findOne({ description: description });
 
   if (findContract) { return res.status(400).send('El contrato ya existe'); }
@@ -19,7 +25,14 @@ async function createContract(req, res, next) {
 }
 
 async function updateContract(req, res, next) {
-  const { _id, start_date, finish_date, conciliation_date, description, id_contract_type } = req.body;
+  const { 
+    _id, 
+    start_date, 
+    finish_date, 
+    conciliation_date, 
+    description, 
+    id_contract_type 
+  } = req.body;
 
   await Contract.updateOne({ _id: _id }, {
     start_date: start_date,
