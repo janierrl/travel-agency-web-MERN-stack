@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require('morgan');
 const routes = require("./routes.js");
-require('./database_config.js');
+require('./utils/configs/database_config.js');
 
 const app = express();
 
